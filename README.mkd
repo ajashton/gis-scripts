@@ -1,4 +1,4 @@
 # GIS Scripts
 
-A collection of scripts I've written to make various GIS & map-design tasks
+A place to keep scripts I've written to make various GIS & map-design tasks
 simpler and more efficient.
