@@ -32,7 +32,7 @@ def is_tms_zlevel(z):
   '''
   try:
     int(z)
-  except:
+  except ValueError:
     return -2
   z = int(z)
   if z >= 0 and z <= 18:
@@ -78,9 +78,9 @@ def prune_layer(layer):
             try:
               if int(y_val) > max_xy:
                 delete(y_path)
-            except:
+            except ValueError:
               pass
-      except:
+      except ValueError:
         pass
 
 def main(layers):
