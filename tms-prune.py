@@ -11,10 +11,10 @@ tms-prune.py: removes extra tiles from a TMS tileset
 Details:
 
   For now we assume that "extra" means outside of the web-mercator bounding-box
-  for the whole earth. Given a directory stuctrue of /z/x/y.ext, files/folders
+  for the whole earth. Given a directory structure of /z/x/y.ext, files/folders
   that do not fit the following rule are unnecessary:
 
-    z <= 0 and z <= 18 and x < 2^z and y < 2^z
+    z <= 0 and z <= 18 and x < 2**z and y < 2**z
 
   For now, we are ignoring files and folders whose name is not a number. In the
   future we may want an option to delete these as well.
@@ -56,14 +56,13 @@ def delete(path):
       rmtree(path)
     if path_type == "file":
       os.remove(path)
-  return
-        
+
 def prune_layer(layer):
-  for zlevel in os.listdir(layer):
-    if is_tms_zlevel(zlevel) < 0:
+  for z in os.listdir(layer):
+    if is_tms_zlevel(z) < 0:
       continue
-    z_dir = os.path.join(layer, zlevel)
-    max_xy = 2**int(zlevel)-1
+    z_dir = os.path.join(layer, z)
+    max_xy = 2**int(z)-1
     for x in os.listdir(z_dir):
       x_dir = os.path.join(z_dir, x)
       if not os.path.isdir(x_dir):
@@ -73,13 +72,12 @@ def prune_layer(layer):
           delete(x_dir)
         else:
           for y in os.listdir(x_dir):
-            # Drop the file extension. For now, we kill a kitten and assume the
-            # extension is 3 characters.
-            y_file = os.path.join(x_dir, y)
-            y_val = y[:-4]
+            y_path = os.path.join(x_dir, y)
+            # Drop the file extension
+            y_val = os.path.splitext(y)[0]
             try:
               if int(y_val) > max_xy:
-                delete(y_file)
+                delete(y_path)
             except:
               pass
       except:
@@ -88,7 +86,7 @@ def prune_layer(layer):
 def main(layers):
   for layer in layers:
     if not os.path.isdir(layer):
-      # @TODO: Proper error handling
+      # @TODO: Proper error handling?
       print "Warning: %s is not a directory." % (layer)
     else:
       prune_layer(layer)
