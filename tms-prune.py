@@ -8,7 +8,7 @@
 '''
 tms-prune.py: removes extra tiles from a TMS tileset
 
-Details:
+Notes:
 
   For now we assume that "extra" means outside of the web-mercator bounding-box
   for the whole earth. Given a directory structure of /z/x/y.ext, files/folders
@@ -18,6 +18,11 @@ Details:
 
   For now, we are ignoring files and folders whose name is not a number. In the
   future we may want an option to delete these as well.
+  
+  This script is also pretty slow. As it is, it checks nearly every file in a
+  layer to see if it's needed or not. This could be sped up by only searching
+  for extra files that are likely to be present, with a full search being
+  optional.
 '''
 
 import os
