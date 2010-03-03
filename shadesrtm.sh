@@ -14,9 +14,16 @@ set -e -u
 ## Required programs:
 ##    gdal >=1.7.0
 ##    imagemagick (tested with 6.5.x)
-##    tif2geo.sh - see http://github.com/ajashton/gis-scripts/blob/master/tif2geo.sh
+##    tif2geo.sh - download at 
+##      <http://github.com/ajashton/gis-scripts/blob/master/tif2geo.sh>
 
+## See <http://www.gdal.org/gdaldem.html#gdaldem_color_relief> for more on what
+## a color ramp file should look like.
 COLOR_RAMP="/home/aj/devseed/maps/_raster/afcount_winter.ramp"
+
+## The ramp I use for slope is:
+##   90 0 0 0
+##   0 255 255 255
 SLOPE_RAMP="/home/aj/devseed/maps/_raster/slope.ramp"
 
 ## prepare subdirectories for output files
