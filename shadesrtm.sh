@@ -51,12 +51,12 @@ for SRTM in $@; do
     -compose soft-light hillshade/$SRTM -composite \
     -compose multiply slope_render/$SRTM -composite \
     -crop 5999x5999+1+1 merged/$SRTM
+    
+## For just slope & hillshade:
 #  convert slope_render/$SRTM \
 #    -compose overlay hillshade/$SRTM -composite \
 #    -crop 5999x5999+1+1 merged/$SRTM
-#  convert color/$SRTM -compose soft-light hillshade/$SRTM -composite \
-#    -compose soft-light hillshade/$SRTM -composite \
-#    -crop 5999x5999+1+1 merged/$SRTM
+
   ## IM destroys geo data - restore with this script I wrote. See:
   ## <http://github.com/ajashton/gis-scripts/blob/master/tif2geo.sh>
   echo -n "Restoring spatial data [$SRTM]: "

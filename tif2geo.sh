@@ -28,8 +28,7 @@ function usage() {
 }
 
 function set_srs() {
-  # This could use expansion/reworking, but we don't really have a need for
-  # more projections than this right now.
+  # TODO: We really could autodetect this...
   case $1 in
     osm|goog|google|900913) INPUT_SRS="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs";;
     wgs84|4326) INPUT_SRS="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";;
