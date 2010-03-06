@@ -14,7 +14,7 @@ Notes:
   for the whole earth. Given a directory structure of /z/x/y.ext, files/folders
   that do not fit the following rule are unnecessary:
 
-    z <= 0 and z <= 18 and x < 2**z and y < 2**z
+    z >= 0 and z <= 18 and x < 2**z and y < 2**z
 
   For now, we are ignoring files and folders whose name is not a number. In the
   future we may want an option to delete these as well.
