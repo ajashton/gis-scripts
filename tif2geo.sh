@@ -50,8 +50,8 @@ done
 TEMP_FILE="${INPUT_FILE}.TIF2GEO_TMP"
 
 # Extract Upper Left and Lower Right coordinates from gdalinfo output
-UL="`$GDALINFO $REFERENCE_FILE | awk '/Upper Left/ {print $4,$5}' | sed 's/[\,\)]//g'`"
-LR="`$GDALINFO $REFERENCE_FILE | awk '/Lower Right/ {print $4,$5}' | sed 's/[\,\)]//g'`"
+UL="`$GDALINFO $REFERENCE_FILE | grep -e "^Upper Left" | cut -c 14-38`"
+LR="`$GDALINFO $REFERENCE_FILE | grep -e "^Lower Right" | cut -c 14-38`"
 
 if [ $COMPRESS == 1 ]; then
   COMPRESS_OPT="-co compress=lzw"
