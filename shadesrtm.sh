@@ -26,6 +26,8 @@ COLOR_RAMP="/home/aj/devseed/maps/_raster/afcount_winter.ramp"
 ##   0 255 255 255
 SLOPE_RAMP="/home/aj/devseed/maps/_raster/slope.ramp"
 
+TIF2GEO="$HOME/bin/tif2geo.sh"
+
 ## prepare subdirectories for output files
 mkdir -p {slope,slope_render,hillshade,color,merged}
 
@@ -60,7 +62,7 @@ for SRTM in $@; do
   ## IM destroys geo data - restore with this script I wrote. See:
   ## <http://github.com/ajashton/gis-scripts/blob/master/tif2geo.sh>
   echo -n "Restoring spatial data [$SRTM]: "
-  tif2geo.sh -s 4326 -r $SRTM -f merged/$SRTM
+  $TIF2GEO -s 4326 -r $SRTM -f merged/$SRTM
 done
 
 ## Make one big tiff
