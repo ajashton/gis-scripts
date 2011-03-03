@@ -7,6 +7,10 @@ simpler and more efficient.
 
 A demonstration of my hillshade creation process in script form. Makes use of gdaldem utilities from newer versions of GDAL.
 
+## shpmerge.sh
+
+Uses ogr2ogr to merge multiple shapefiles into one.
+
 ## tif2geo.sh
 
 This script reads the geographic coordinates from one TIF file (using gdalinfo) and applies them to another TIF (using gdal_translate). Useful for restoring this data after making edits in a non-geo-aware program, such as GIMP or ImageMagick.
