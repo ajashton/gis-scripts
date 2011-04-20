@@ -25,7 +25,7 @@ Notes:
   optional.
 '''
 
-import os
+import os, sys
 from shutil import rmtree
 from optparse import OptionParser
 
@@ -63,6 +63,9 @@ def delete(path):
       os.remove(path)
 
 def prune_layer(layer):
+  print "Pruning %s" % (layer)
+  count = 0
+  msg = ""
   for z in os.listdir(layer):
     if is_tms_zlevel(z) < 0:
       continue
@@ -74,7 +77,11 @@ def prune_layer(layer):
         continue
       try:
         if int(x) > max_xy:
+          count = count + len([name for name in os.listdir(x_dir) if os.path.isfile(name)])
           delete(x_dir)
+          for c in msg: sys.stdout.write(chr(8))
+          msg = "%s out-of-bounds tiles deleted" % (count)
+          sys.stdout.write(msg)
         else:
           for y in os.listdir(x_dir):
             y_path = os.path.join(x_dir, y)
@@ -82,11 +89,16 @@ def prune_layer(layer):
             y_val = os.path.splitext(y)[0]
             try:
               if int(y_val) > max_xy:
+                count = count + 1
                 delete(y_path)
+                for c in msg: sys.stdout.write(chr(8))
+                msg = "%s out-of-bounds tiles deleted" % (count)
+                sys.stdout.write(msg)
             except ValueError:
               pass
       except ValueError:
         pass
+  sys.stdout.write(chr(10))
 
 def main(layers):
   for layer in layers:
